@@ -2,7 +2,7 @@ package com.services.loanotes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText regConfirm;
     private Button btnRegister;
 
+    private LOAUser loaUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +44,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(loginUser()) {
-                    Snackbar.make(view, "You are " + userName,
-                            Snackbar.LENGTH_LONG).show();
+                    startActivity(new Intent(MainActivity.this, Home.class));
                 } else {
-                    Snackbar.make(view, "Clicked Login without credentials!",
+                    Snackbar.make(view, "Invalid credentials. Try again!",
                             Snackbar.LENGTH_LONG).show();
                 }
 
@@ -60,12 +61,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean loginUser() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
         userName = loginUserName.getText().toString();
         password = loginPass.getText().toString();
+
         if(userName.length() <= 0 || password.length() <= 0) {
             return false;
         }
-        return true;
+        DataManager manager = new DataManager();
+        loaUser = manager.loadFromDatabase(dbHelper);
+
+        if(userName.equals(loaUser.getEmail()) || userName.equals(loaUser.getPhone())){
+            if(password.equals(loaUser.getPassword())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

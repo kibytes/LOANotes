@@ -3,6 +3,8 @@ package com.services.loanotes;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.services.loanotes.LOANotesDBContract.UserInfoEntry;
+
 public class DatabaseDataWorker {
     private SQLiteDatabase mDb;
 
@@ -19,11 +21,11 @@ public class DatabaseDataWorker {
 
     private void insertUser(String userName, String email, String phone, String password) {
         ContentValues values = new ContentValues();
-        values.put(LOANotesDBContract.UserInfoEntry.COLUMN_USER_NAME, userName);
-        values.put(LOANotesDBContract.UserInfoEntry.COLUMN_USER_EMAIL, email);
-        values.put(LOANotesDBContract.UserInfoEntry.COLUMN_USER_PHONE, phone);
-        values.put(LOANotesDBContract.UserInfoEntry.COLUMN_USER_PASS, password);
+        values.put(UserInfoEntry.COLUMN_USER_NAME, userName);
+        values.put(UserInfoEntry.COLUMN_USER_EMAIL, email);
+        values.put(UserInfoEntry.COLUMN_USER_PHONE, phone);
+        values.put(UserInfoEntry.COLUMN_USER_PASS, password);
 
-        long newRowId = mDb.insert(LOANotesDBContract.UserInfoEntry.TABLE_NAME, null, values);
+        long newRowId = mDb.insert(UserInfoEntry.TABLE_NAME, null, values);
     }
 }
