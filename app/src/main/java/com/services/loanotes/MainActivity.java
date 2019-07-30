@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(loginUser()) {
-                    startActivity(new Intent(MainActivity.this, Home.class));
+                    Intent home = new Intent(MainActivity.this, Home.class);
+                    home.putExtra("loa_user", loaUser);
+                    startActivity(home);
                 } else {
                     Snackbar.make(view, "Invalid credentials. Try again!",
                             Snackbar.LENGTH_LONG).show();
