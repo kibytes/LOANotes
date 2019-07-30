@@ -2,14 +2,9 @@ package com.services.loanotes;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import com.services.loanotes.LOANotesDBContract.UserInfoEntry;
 
-import java.util.ArrayList;
-
 public class DataManager {
-
-    public static ArrayList<LOAUser> users;
 
     public LOAUser loadFromDatabase(LOANotesOpenHelper dbHelper) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
